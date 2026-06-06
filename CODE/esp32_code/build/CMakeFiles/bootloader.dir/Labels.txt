@@ -1,0 +1,13 @@
+# Target labels
+ bootloader
+# Source files and their labels
+R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/CMakeFiles/bootloader
+R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/CMakeFiles/bootloader.rule
+R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/CMakeFiles/bootloader-complete.rule
+R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
+R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
+R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
+R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
+R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
+R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
+R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule
