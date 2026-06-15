@@ -54,6 +54,9 @@ R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/esp-idf/esp_
 R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/esp-idf/esp_psram/libesp_psram.a
 R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/esp-idf/vfs/libvfs.a
 R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/esp-idf/esp_gdbstub/libesp_gdbstub.a
+R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/esp-idf/esp_coex/libesp_coex.a
+C:/esp/v6.0/esp-idf/components/esp_coex/lib/esp32/libcoexist.a
+C:/esp/v6.0/esp-idf/components/bt/controller/lib_esp32/esp32/libbtdm_app.a
 R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/esp-idf/esp_adc/libesp_adc.a
 R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/esp-idf/esp_driver_i2s/libesp_driver_i2s.a
 R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/esp-idf/esp_hal_i2c/libesp_hal_i2c.a
@@ -68,7 +71,6 @@ R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/esp-idf/esp_
 R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/esp-idf/esp_phy/libesp_phy.a
 R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/esp-idf/esp_netif/libesp_netif.a
 R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/esp-idf/wpa_supplicant/libwpa_supplicant.a
-R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/esp-idf/esp_coex/libesp_coex.a
 C:/esp/v6.0/esp-idf/components/esp_wifi/lib/esp32/libcore.a
 C:/esp/v6.0/esp-idf/components/esp_wifi/lib/esp32/libespnow.a
 C:/esp/v6.0/esp-idf/components/esp_wifi/lib/esp32/libmesh.a
@@ -129,6 +131,8 @@ R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/esp-idf/esp_
 R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/esp-idf/esp_wifi/libesp_wifi.a
 R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/esp-idf/esp_driver_spi/libesp_driver_spi.a
 R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/esp-idf/esp_gdbstub/libesp_gdbstub.a
+R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/esp-idf/bt/libbt.a
+R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/esp-idf/esp_driver_spi/libesp_driver_spi.a
 R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/esp-idf/unity/libunity.a
 R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/esp-idf/cmock/libcmock.a
 R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/esp-idf/unity/libunity.a
@@ -164,12 +168,12 @@ R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/esp-idf/esp_
 R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/esp-idf/esp_driver_sdmmc/libesp_driver_sdmmc.a
 R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/esp-idf/esp_driver_sd_intf/libesp_driver_sd_intf.a
 R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/esp-idf/esp_driver_sdspi/libesp_driver_sdspi.a
-R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/esp-idf/esp_driver_spi/libesp_driver_spi.a
 R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/esp-idf/esp_driver_touch_sens/libesp_driver_touch_sens.a
 R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/esp-idf/esp_driver_twai/libesp_driver_twai.a
 R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/esp-idf/esp_eth/libesp_eth.a
 R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/esp-idf/esp_hal_lcd/libesp_hal_lcd.a
 R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/esp-idf/esp_hid/libesp_hid.a
+R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/esp-idf/bt/libbt.a
 R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/esp-idf/tcp_transport/libtcp_transport.a
 R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/esp-idf/esp_http_client/libesp_http_client.a
 R:/LICENTA/Sistem_mobil_cu_traseu_programabil/CODE/esp32_code/build/esp-idf/esp_http_server/libesp_http_server.a

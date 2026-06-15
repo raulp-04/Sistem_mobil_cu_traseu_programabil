@@ -1,5 +1,7 @@
 #include "raylib.h"
+#include "SerialHelper.h" 
 #include <vector>
+#include <string>
 #include <iostream>
 #include <cmath>
 
@@ -34,8 +36,8 @@ int main() {
     camera.zoom = 1.0f;
 
     // UI
-    Rectangle butonActiune = { screenWidth / 2.0f - 75, 825, 150, 50 };
-    Rectangle panouText = { 0, 0, 260, 70 };
+    Rectangle butonActiune = { screenWidth / 2.0f - 75.0f, 825.0f, 150.0f, 50.0f };
+    Rectangle panouText = { 0.0f, 0.0f, 260.0f, 70.0f };
 
     while (!WindowShouldClose()) {
         Vector2 mousePos = GetMousePosition();
@@ -45,7 +47,8 @@ int main() {
                 if (!robotInMiscare) {
                     if (listaPuncte.size() > 1) {
                         robotInMiscare = true;
-                        std::cout << "Start animatie, trimitere date catre microcontroller" << std::endl;
+                        SendBluetooth("\\\\.\\COM6");
+                        std::cout << "Start animatie, trimitere date catre microcontroller." << std::endl;
                     }
                 } else {
                     robotInMiscare = false;
@@ -139,11 +142,10 @@ int main() {
         // Panoul de text de sus
         DrawRectangleRec(panouText, Fade(RAYWHITE, 0.90f));
         DrawText(TextFormat("Puncte adaugate: %d / 9", listaPuncte.size() - 1), 10, 10, 20, DARKGRAY);
+
         if (listaPuncte.size() >= 10 && !robotInMiscare) {
             DrawText("LIMITA ATINSA!", 10, 40, 20, ORANGE);
-        }
-
-        else if (targetIndex == listaPuncte.size() && targetIndex != 1) {
+        } else if (targetIndex == listaPuncte.size() && targetIndex != 1) {
             DrawText("Traseu finalizat", 10, 40, 20, GREEN);
         }
 
