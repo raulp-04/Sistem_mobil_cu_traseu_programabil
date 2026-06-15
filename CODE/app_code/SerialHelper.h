@@ -3,9 +3,7 @@
 
 #include <string>
 
-// Aici doar declarăm funcția
-void SendBluetooth(std::string portName);
+// lanseaza trimiterea pe un thread separat ca sa nu blocheze interfata
+void SendBluetoothThreaded(const std::string& portName, const std::string& payload);
 
-#endif//
-// Created by raulp on 09/06/2026.
-//
+#endif
