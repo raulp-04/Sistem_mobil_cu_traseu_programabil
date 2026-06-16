@@ -1,0 +1,261 @@
+Command: C:\Espressif\tools\python\v6.0\venv\Scripts\python.exe C:\esp\v6.0\esp-idf\tools/idf_monitor.py -p COM10 -b 115200 --toolchain-prefix xtensa-esp32-elf- --target esp32 --revision 0 R:\LICENTA\Sistem_mobil_cu_traseu_programabil\CODE\esp32_code\build\main.elf R:\LICENTA\Sistem_mobil_cu_traseu_programabil\CODE\esp32_code\build\bootloader\bootloader.elf --force-color -m 'C:\Espressif\tools\python\v6.0\venv\Scripts\python.exe' 'C:\esp\v6.0\esp-idf\tools\idf.py' '-p' 'COM10'
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_F�ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0040,len:6272
+load:0x40078000,len:15848
+load:0x40080400,len:3920
+entry 0x40080644
+[0;32mI (27) boot: ESP-IDF v6.0 2nd stage bootloader[0m
+[0;32mI (27) boot: compile time Jun  9 2026 02:06:16[0m
+[0;32mI (28) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v3.1[0m
+[0;32mI (31) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (35) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (39) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (42) boot: Enabling RNG early entropy source...[0m
+[0;32mI (47) boot: Partition Table:[0m
+[0;32mI (49) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (56) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (62) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (69) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (75) boot: End of partition table[0m
+[0;32mI (79) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=25a94h (154260) map[0m
+[0;32mI (141) esp_image: segment 1: paddr=00035abc vaddr=3ffbdb60 size=04ee8h ( 20200) load[0m
+[0;32mI (149) esp_image: segment 2: paddr=0003a9ac vaddr=40080000 size=0566ch ( 22124) load[0m
+[0;32mI (158) esp_image: segment 3: paddr=00040020 vaddr=400d0020 size=88140h (557376) map[0m
+[0;32mI (357) esp_image: segment 4: paddr=000c8168 vaddr=4008566c size=1037ch ( 66428) load[0m
+[0;32mI (384) esp_image: segment 5: paddr=000d84ec vaddr=50000000 size=00028h (    40) load[0m
+[0;32mI (396) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (396) boot: Disabling RNG early entropy source...[0m
+[0;32mI (406) cpu_start: Multicore app[0m
+[0;32mI (415) cpu_start: GPIO 3 and 1 are used as console UART I/O pins[0m
+[0;32mI (415) cpu_start: Pro cpu start user code[0m
+[0;32mI (415) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (417) app_init: Application information:[0m
+[0;32mI (421) app_init: Project name:     main[0m
+[0;32mI (424) app_init: App version:      1[0m
+[0;32mI (428) app_init: Compile time:     Jun  9 2026 02:22:10[0m
+[0;32mI (433) app_init: ELF file SHA256:  7c58850a7...[0m
+[0;32mI (437) app_init: ESP-IDF:          v6.0[0m
+[0;32mI (441) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (444) efuse_init: Max chip rev:     v3.99 [0m
+[0;32mI (448) efuse_init: Chip rev:         v3.1[0m
+[0;32mI (453) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (459) heap_init: At 3FFAFF10 len 000000F0 (0 KiB): DRAM[0m
+[0;32mI (464) heap_init: At 3FFB6388 len 00001C78 (7 KiB): DRAM[0m
+[0;32mI (469) heap_init: At 3FFB9A20 len 00004108 (16 KiB): DRAM[0m
+[0;32mI (474) heap_init: At 3FFCA550 len 00015AB0 (86 KiB): DRAM[0m
+[0;32mI (479) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (485) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (490) heap_init: At 400959E8 len 0000A618 (41 KiB): IRAM[0m
+[0;32mI (497) spi_flash: detected chip: generic[0m
+[0;32mI (499) spi_flash: flash io: dio[0m
+[0;33mW (502) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (516) coexist: coex firmware version: 093e3d2[0m
+[0;32mI (519) main_task: Started on CPU0[0m
+[0;32mI (529) main_task: Calling app_main()[0m
+[0;32mI (539) BTDM_INIT: BT controller compile version [045a658][0m
+[0;32mI (539) BTDM_INIT: Using main XTAL as clock source[0m
+[0;32mI (539) BTDM_INIT: Bluetooth MAC: f4:2d:c9:87:d1:72[0m
+[0;32mI (549) phy_init: phy_version 4863,a3a4459,Oct 28 2025,14:30:06[0m
+[0;32mI (1249) ROBOT_BT: Sistemul PWM si BT a pornit complet.[0m
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0040,len:6272
+load:0x40078000,len:15848
+load:0x40080400,len:3920
+entry 0x40080644
+[0;32mI (27) boot: ESP-IDF v6.0 2nd stage bootloader[0m
+[0;32mI (27) boot: compile time Jun  9 2026 02:06:16[0m
+[0;32mI (28) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v3.1[0m
+[0;32mI (31) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (35) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (39) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (42) boot: Enabling RNG early entropy source...[0m
+[0;32mI (47) boot: Partition Table:[0m
+[0;32mI (49) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (56) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (62) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (69) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (75) boot: End of partition table[0m
+[0;32mI (79) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=25a94h (154260) map[0m
+[0;32mI (141) esp_image: segment 1: paddr=00035abc vaddr=3ffbdb60 size=04ee8h ( 20200) load[0m
+[0;32mI (149) esp_image: segment 2: paddr=0003a9ac vaddr=40080000 size=0566ch ( 22124) load[0m
+[0;32mI (158) esp_image: segment 3: paddr=00040020 vaddr=400d0020 size=88140h (557376) map[0m
+[0;32mI (357) esp_image: segment 4: paddr=000c8168 vaddr=4008566c size=1037ch ( 66428) load[0m
+[0;32mI (384) esp_image: segment 5: paddr=000d84ec vaddr=50000000 size=00028h (    40) load[0m
+[0;32mI (396) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (396) boot: Disabling RNG early entropy source...[0m
+[0;32mI (406) cpu_start: Multicore app[0m
+[0;32mI (415) cpu_start: GPIO 3 and 1 are used as console UART I/O pins[0m
+[0;32mI (415) cpu_start: Pro cpu start user code[0m
+[0;32mI (415) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (417) app_init: Application information:[0m
+[0;32mI (421) app_init: Project name:     main[0m
+[0;32mI (424) app_init: App version:      1[0m
+[0;32mI (428) app_init: Compile time:     Jun  9 2026 02:22:10[0m
+[0;32mI (433) app_init: ELF file SHA256:  7c58850a7...[0m
+[0;32mI (437) app_init: ESP-IDF:          v6.0[0m
+[0;32mI (441) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (444) efuse_init: Max chip rev:     v3.99 [0m
+[0;32mI (448) efuse_init: Chip rev:         v3.1[0m
+[0;32mI (453) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (459) heap_init: At 3FFAFF10 len 000000F0 (0 KiB): DRAM[0m
+[0;32mI (464) heap_init: At 3FFB6388 len 00001C78 (7 KiB): DRAM[0m
+[0;32mI (469) heap_init: At 3FFB9A20 len 00004108 (16 KiB): DRAM[0m
+[0;32mI (474) heap_init: At 3FFCA550 len 00015AB0 (86 KiB): DRAM[0m
+[0;32mI (479) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (485) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (490) heap_init: At 400959E8 len 0000A618 (41 KiB): IRAM[0m
+[0;32mI (497) spi_flash: detected chip: generic[0m
+[0;32mI (499) spi_flash: flash io: dio[0m
+[0;33mW (502) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (516) coexist: coex firmware version: 093e3d2[0m
+[0;32mI (519) main_task: Started on CPU0[0m
+[0;32mI (529) main_task: Calling app_main()[0m
+[0;32mI (539) BTDM_INIT: BT controller compile version [045a658][0m
+[0;32mI (539) BTDM_INIT: Using main XTAL as clock source[0m
+[0;32mI (539) BTDM_INIT: Bluetooth MAC: f4:2d:c9:87:d1:72[0m
+[0;32mI (549) phy_init: phy_version 4863,a3a4459,Oct 28 2025,14:30:06[0m
+[0;32mI (1229) ROBOT_BT: Sistemul PWM si BT a pornit complet.[0m
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0040,len:6272
+load:0x40078000,len:15848
+load:0x40080400,len:3920
+entry 0x40080644
+[0;32mI (27) boot: ESP-IDF v6.0 2nd stage bootloader[0m
+[0;32mI (27) boot: compile time Jun  9 2026 02:06:16[0m
+[0;32mI (28) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v3.1[0m
+[0;32mI (31) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (35) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (39) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (42) boot: Enabling RNG early entropy source...[0m
+[0;32mI (47) boot: Partition Table:[0m
+[0;32mI (49) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (56) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (62) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (69) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (75) boot: End of partition table[0m
+[0;32mI (79) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=25a94h (154260) map[0m
+[0;32mI (141) esp_image: segment 1: paddr=00035abc vaddr=3ffbdb60 size=04ee8h ( 20200) load[0m
+[0;32mI (149) esp_image: segment 2: paddr=0003a9ac vaddr=40080000 size=0566ch ( 22124) load[0m
+[0;32mI (158) esp_image: segment 3: paddr=00040020 vaddr=400d0020 size=88140h (557376) map[0m
+[0;32mI (357) esp_image: segment 4: paddr=000c8168 vaddr=4008566c size=1037ch ( 66428) load[0m
+[0;32mI (384) esp_image: segment 5: paddr=000d84ec vaddr=50000000 size=00028h (    40) load[0m
+[0;32mI (396) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (396) boot: Disabling RNG early entropy source...[0m
+[0;32mI (406) cpu_start: Multicore app[0m
+[0;32mI (415) cpu_start: GPIO 3 and 1 are used as console UART I/O pins[0m
+[0;32mI (415) cpu_start: Pro cpu start user code[0m
+[0;32mI (415) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (417) app_init: Application information:[0m
+[0;32mI (421) app_init: Project name:     main[0m
+[0;32mI (424) app_init: App version:      1[0m
+[0;32mI (428) app_init: Compile time:     Jun  9 2026 02:22:10[0m
+[0;32mI (433) app_init: ELF file SHA256:  7c58850a7...[0m
+[0;32mI (437) app_init: ESP-IDF:          v6.0[0m
+[0;32mI (441) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (444) efuse_init: Max chip rev:     v3.99 [0m
+[0;32mI (448) efuse_init: Chip rev:         v3.1[0m
+[0;32mI (453) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (459) heap_init: At 3FFAFF10 len 000000F0 (0 KiB): DRAM[0m
+[0;32mI (464) heap_init: At 3FFB6388 len 00001C78 (7 KiB): DRAM[0m
+[0;32mI (469) heap_init: At 3FFB9A20 len 00004108 (16 KiB): DRAM[0m
+[0;32mI (474) heap_init: At 3FFCA550 len 00015AB0 (86 KiB): DRAM[0m
+[0;32mI (479) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (485) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (490) heap_init: At 400959E8 len 0000A618 (41 KiB): IRAM[0m
+[0;32mI (497) spi_flash: detected chip: generic[0m
+[0;32mI (499) spi_flash: flash io: dio[0m
+[0;33mW (502) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (516) coexist: coex firmware version: 093e3d2[0m
+[0;32mI (519) main_task: Started on CPU0[0m
+[0;32mI (529) main_task: Calling app_main()[0m
+[0;32mI (539) BTDM_INIT: BT controller compile version [045a658][0m
+[0;32mI (539) BTDM_INIT: Using main XTAL as clock source[0m
+[0;32mI (539) BTDM_INIT: Bluetooth MAC: f4:2d:c9:87:d1:72[0m
+[0;32mI (549) phy_init: phy_version 4863,a3a4459,Oct 28 2025,14:30:06[0m
+[0;32mI (1219) ROBOT_BT: Sistemul PWM si BT a pornit complet.[0m
+[0;33mW (137889) BT_HCI: hcif conn complete: hdl 0x80, st 0x0[0m
+[0;33mW (138079) BT_APPL: new conn_srvc id:26, app_id:255[0m
+[0;32mI (138099) ROBOT_BT: Comanda noua -> R: -0.01 rad (0 p), M: 21.90 cm (131 p)[0m
+[0;33mW (138229) BT_RFCOMM: port_rfc_closed RFCOMM connection in server:1 state 2 closed: Closed (res: 19)[0m
+[0;33mW (138259) BT_RFCOMM: rfc_find_lcid_mcb LCID reused LCID:0x41 current:0x0[0m
+[0;33mW (138259) BT_RFCOMM: RFCOMM_DisconnectInd LCID:0x41[0m
+[0;33mW (141389) BT_HCI: hcif disc complete: hdl 0x80, rsn 0x13 dev_find 1[0m
+[0;32mI (143099) ROBOT_BT: Punct atins. Pulsuri: A=0, B=0[0m
+[0;32mI (143499) ROBOT_BT: ========================================[0m
+[0;32mI (143499) ROBOT_BT: >>> SUCCES: Executia traseului s-a terminat complet! <<<[0m
+[0;32mI (143499) ROBOT_BT: ========================================[0m
+[0;33mW (148889) BT_HCI: hcif conn complete: hdl 0x81, st 0x0[0m
+[0;33mW (149089) BT_APPL: new conn_srvc id:26, app_id:255[0m
+[0;32mI (149109) ROBOT_BT: Comanda noua -> R: 1.61 rad (12 p), M: 13.66 cm (81 p)[0m
+[0;33mW (149219) BT_RFCOMM: port_rfc_closed RFCOMM connection in server:1 state 2 closed: Closed (res: 19)[0m
+[0;33mW (149259) BT_RFCOMM: rfc_find_lcid_mcb LCID reused LCID:0x41 current:0x0[0m
+[0;33mW (149269) BT_RFCOMM: RFCOMM_DisconnectInd LCID:0x41[0m
+[0;33mW (152409) BT_HCI: hcif disc complete: hdl 0x81, rsn 0x13 dev_find 1[0m
+[0;33mW (154829) BT_HCI: hcif conn complete: hdl 0x80, st 0x0[0m
+[0;33mW (155079) BT_APPL: new conn_srvc id:26, app_id:255[0m
+[0;33mW (155209) BT_RFCOMM: port_rfc_closed RFCOMM connection in server:1 state 2 closed: Closed (res: 19)[0m
+[0;33mW (155249) BT_RFCOMM: rfc_find_lcid_mcb LCID reused LCID:0x41 current:0x0[0m
+[0;33mW (155249) BT_RFCOMM: RFCOMM_DisconnectInd LCID:0x41[0m
+[0;32mI (157409) ROBOT_BT: Punct atins. Pulsuri: A=0, B=0[0m
+[0;32mI (157809) ROBOT_BT: ========================================[0m
+[0;32mI (157809) ROBOT_BT: >>> SUCCES: Executia traseului s-a terminat complet! <<<[0m
+[0;32mI (157809) ROBOT_BT: ========================================[0m
+[0;32mI (157809) ROBOT_BT: Comanda noua -> R: 1.61 rad (12 p), M: 43.38 cm (260 p)[0m
+[0;33mW (158419) BT_HCI: hcif disc complete: hdl 0x80, rsn 0x13 dev_find 1[0m
+[0;32mI (163849) ROBOT_BT: Punct atins. Pulsuri: A=261, B=270[0m
+[0;32mI (164249) ROBOT_BT: ========================================[0m
+[0;32mI (164249) ROBOT_BT: >>> SUCCES: Executia traseului s-a terminat complet! <<<[0m
+[0;32mI (164249) ROBOT_BT: ========================================[0m
+[0;33mW (168399) BT_HCI: hcif conn complete: hdl 0x81, st 0x0[0m
+[0;33mW (168619) BT_APPL: new conn_srvc id:26, app_id:255[0m
+[0;32mI (168639) ROBOT_BT: Comanda noua -> R: 1.54 rad (12 p), M: 25.96 cm (155 p)[0m
+[0;33mW (168739) BT_RFCOMM: port_rfc_closed RFCOMM connection in server:1 state 2 closed: Closed (res: 19)[0m
+[0;33mW (168749) BT_RFCOMM: rfc_find_lcid_mcb LCID reused LCID:0x41 current:0x0[0m
+[0;33mW (168759) BT_RFCOMM: RFCOMM_DisconnectInd LCID:0x41[0m
+[0;32mI (171419) ROBOT_BT: Punct atins. Pulsuri: A=155, B=163[0m
+[0;32mI (171819) ROBOT_BT: ========================================[0m
+[0;32mI (171819) ROBOT_BT: >>> SUCCES: Executia traseului s-a terminat complet! <<<[0m
+[0;32mI (171819) ROBOT_BT: ========================================[0m
+[0;33mW (171909) BT_HCI: hcif disc complete: hdl 0x81, rsn 0x13 dev_find 1[0m
+[0;33mW (176829) BT_HCI: hcif conn complete: hdl 0x80, st 0x0[0m
+[0;33mW (177089) BT_APPL: new conn_srvc id:26, app_id:255[0m
+[0;32mI (177119) ROBOT_BT: Comanda noua -> R: -0.03 rad (0 p), M: 24.46 cm (146 p)[0m
+[0;33mW (177209) BT_RFCOMM: port_rfc_closed RFCOMM connection in server:1 state 2 closed: Closed (res: 19)[0m
+[0;33mW (177239) BT_RFCOMM: rfc_find_lcid_mcb LCID reused LCID:0x41 current:0x0[0m
+[0;33mW (177239) BT_RFCOMM: RFCOMM_DisconnectInd LCID:0x41[0m
+[0;32mI (179239) ROBOT_BT: Punct atins. Pulsuri: A=147, B=154[0m
+[0;32mI (179639) ROBOT_BT: ========================================[0m
+[0;32mI (179639) ROBOT_BT: >>> SUCCES: Executia traseului s-a terminat complet! <<<[0m
+[0;32mI (179639) ROBOT_BT: ========================================[0m
+[0;33mW (180389) BT_HCI: hcif disc complete: hdl 0x80, rsn 0x13 dev_find 1[0m
+[0;33mW (182689) BT_HCI: hcif conn complete: hdl 0x81, st 0x0[0m
+[0;33mW (182939) BT_APPL: new conn_srvc id:26, app_id:255[0m
+[0;32mI (182969) ROBOT_BT: Comanda noua -> R: -3.13 rad (25 p), M: 48.60 cm (291 p)[0m
+[0;33mW (183059) BT_RFCOMM: port_rfc_closed RFCOMM connection in server:1 state 2 closed: Closed (res: 19)[0m
+[0;33mW (183079) BT_RFCOMM: rfc_find_lcid_mcb LCID reused LCID:0x41 current:0x0[0m
+[0;33mW (183079) BT_RFCOMM: RFCOMM_DisconnectInd LCID:0x41[0m
+[0;33mW (186229) BT_HCI: hcif disc complete: hdl 0x81, rsn 0x13 dev_find 1[0m
+[0;32mI (188579) ROBOT_BT: Punct atins. Pulsuri: A=292, B=302[0m
+[0;32mI (188979) ROBOT_BT: ========================================[0m
+[0;32mI (188979) ROBOT_BT: >>> SUCCES: Executia traseului s-a terminat complet! <<<[0m
+[0;32mI (188979) ROBOT_BT: ========================================[0m

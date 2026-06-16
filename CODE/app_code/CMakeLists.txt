@@ -17,6 +17,6 @@ set(BUILD_GAMES OFF CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(raylib)
 
 add_executable(app_code main.cpp
-        SerialHelper.cpp
-        SerialHelper.h)
+        functions.cpp
+        functions.h)
 target_link_libraries(app_code PRIVATE raylib)

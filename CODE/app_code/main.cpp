@@ -1,5 +1,5 @@
 #include "raylib.h"
-#include "SerialHelper.h"
+#include "functions.h"
 #include <vector>
 #include <string>
 #include <iostream>
@@ -51,14 +51,15 @@ int main() {
                             float dx = listaPuncte[i].x - listaPuncte[i-1].x;
                             float dy = listaPuncte[i].y - listaPuncte[i-1].y;
 
-                            // scara fizica: 4 pixeli = 1 cm real
                             float distantaPixeli = sqrt(dx * dx + dy * dy);
-                            float distantaCm = distantaPixeli / 4.0f;
+
+                            // NOUA SCARĂ: Un pătrat de 400px înseamnă 60 cm reali (0.6m)
+                            // distantaCm = distantaPixeli * (60.0cm / 400.0px)
+                            float distantaCm = distantaPixeli * 0.15f;
 
                             float unghiAbsolut = atan2(dy, dx);
                             float deltaUnghi = unghiAbsolut - currentAngleSimulation;
 
-                            // normalizare unghi in intervalul [-pi, pi]
                             while (deltaUnghi > PI) deltaUnghi -= 2 * PI;
                             while (deltaUnghi < -PI) deltaUnghi += 2 * PI;
 
@@ -67,7 +68,6 @@ int main() {
                         }
                         payload += "END\n";
 
-                        // apel threadat non-blocking (com6 din setarile tale)
                         SendBluetoothThreaded("\\\\.\\COM5", payload);
                     }
                 } else {
@@ -128,10 +128,13 @@ int main() {
         DrawRectangleRec(panouText, Fade(RAYWHITE, 0.90f));
         DrawText(TextFormat("Puncte adaugate: %d / 9", listaPuncte.size() - 1), 10, 10, 20, DARKGRAY);
 
+        // Afișăm pe ecran scara curentă ca să dea bine la prezentare
+        DrawText("Scara: 1 Cadran = 0.6m (60cm)", 10, 40, 16, BLUE);
+
         if (listaPuncte.size() >= 10 && !robotInMiscare) {
-            DrawText("LIMITA ATINSA!", 10, 40, 20, ORANGE);
+            DrawText("LIMITA ATINSA!", 10, 65, 18, ORANGE);
         } else if (targetIndex == listaPuncte.size() && targetIndex != 1) {
-            DrawText("Traseu finalizat", 10, 40, 20, GREEN);
+            DrawText("Traseu finalizat", 10, 65, 18, GREEN);
         }
 
         if (!robotInMiscare) {
