@@ -23,7 +23,7 @@
 #define PIN_MOTOR_B_1A 13
 #define PIN_MOTOR_B_1B 12
 
-// Defonire pini citire encodere
+// Definire pini citire encodere
 #define PIN_ENCODER_A 14
 #define PIN_ENCODER_B 27
 
@@ -41,6 +41,7 @@
 
 static const char *TAG = "ROBOT_BT";
 
+// Structura mesaje primite din coada FreeRTOS
 typedef struct {
     float rotatie;
     float miscare;
@@ -48,9 +49,11 @@ typedef struct {
 
 static QueueHandle_t comenzi_queue = NULL;
 
+// Contoare impulsuri encodere optice
 static volatile int pulse_count_A = 0;
 static volatile int pulse_count_B = 0;
 
+// Rutine de intrerupere (ISR) pentru numarare impulsuri
 static void IRAM_ATTR encoder_A_isr_handler(void* arg) {
     pulse_count_A++;
 }
@@ -59,7 +62,7 @@ static void IRAM_ATTR encoder_B_isr_handler(void* arg) {
     pulse_count_B++;
 }
 
-// Functie auxiliara pentru controlul fin al vitezei (-1023 -> 1023)
+// Control directie si factor de umplere PWM pentru punti H
 void seteaza_viteza_motoare(int viteza_A, int viteza_B) {
     // Control Motor A
     if (viteza_A > 0) {
@@ -84,27 +87,23 @@ void seteaza_viteza_motoare(int viteza_A, int viteza_B) {
     ledc_update_duty(LEDC_MODE, CH_MOTOR_B_1B);
 }
 
+// Task executie secventiala comenzi cinematice
 static void robot_task(void *pvParameters) {
     ComandaTraseu comanda;
     
     while (1) {
+        // Asteptare blocanta pana la aparitia unei comenzi noi in coada
         if (xQueueReceive(comenzi_queue, &comanda, portMAX_DELAY) == pdTRUE) {
             
+            // Flag terminare completa traseu
             if (comanda.miscare == -1.0f) {
-                ESP_LOGI(TAG, "========================================");
-                ESP_LOGI(TAG, ">>> SUCCES: Executia traseului s-a terminat complet! <<<");
-                ESP_LOGI(TAG, "========================================");
+                ESP_LOGI(TAG, "SUCCES: Executia traseului s-a terminat complet!");
                 continue;
             }
 
-            // ========================================================
-            // CONFIGURARE CONSTANTE SI VITEZA
-            // ========================================================
+            // Constante calibrare deplasare si rotire
             int PUTERE_BAZA = 750;          
             float IMPULSURI_PER_CM = 6.0f;  
-
-            // Am urcat valoarea de la 6.5 la 18.0 ca sa se roteasca mai mult.
-            // Daca nu se intoarce complet "cu totul" inapoi, mai urca valoarea asta (ex: 22.0f)
             float IMPULSURI_PER_RADIAN = 9.0f; 
 
             int target_pulses_rotire = abs((int)(comanda.rotatie * IMPULSURI_PER_RADIAN));
@@ -113,20 +112,21 @@ static void robot_task(void *pvParameters) {
             ESP_LOGI(TAG, "Execut -> R: %.2f rad (%d p), M: %.2f cm (%d p)", 
                      comanda.rotatie, target_pulses_rotire, comanda.miscare, target_pulses_miscare);
             
-            // --- ETAPA 1: ROTIRE ROBOT (DIRECȚIE INVERSATĂ SOFTWARE) ---
+            // 1. Executie etapa de rotire pe loc
             if (target_pulses_rotire > 0) {
                 pulse_count_A = 0;
                 pulse_count_B = 0;
                 bool motorA_activ = true;
                 bool motorB_activ = true;
 
-                // Am inversat semnele de viteza aici pentru a repara stanga/dreapta
+                // Stabilire sens rotatie (stanga/dreapta)
                 if (comanda.rotatie > 0) {
                     seteaza_viteza_motoare(-PUTERE_BAZA, PUTERE_BAZA); 
                 } else {
                     seteaza_viteza_motoare(PUTERE_BAZA, -PUTERE_BAZA); 
                 }
 
+                // Monitorizare feedback encodere cu esantionare la 10ms si timeout de siguranta
                 int timeout_rotire = 0;
                 while ((motorA_activ || motorB_activ) && timeout_rotire < 300) {
                     
@@ -155,10 +155,10 @@ static void robot_task(void *pvParameters) {
                     timeout_rotire++;
                 }
                 seteaza_viteza_motoare(0, 0);
-                vTaskDelay(pdMS_TO_TICKS(300));
+                vTaskDelay(pdMS_TO_TICKS(300)); // Stabilizare robot dupa oprire
             }
 
-            // --- ETAPA 2: MERS ÎNAINTE DREPT CU SINCRONIZARE ---
+            // 2. Executie etapa de mers inainte liniar
             if (target_pulses_miscare > 0) {
                 pulse_count_A = 0;
                 pulse_count_B = 0;
@@ -170,10 +170,11 @@ static void robot_task(void *pvParameters) {
                 seteaza_viteza_motoare(v_A, v_B);
 
                 int timeout_miscare = 0;
-                float Kp = 8.0f; 
+                float Kp = 8.0f; // Coeficient proportional pentru corectie eroare diferentiala
 
                 while ((motorA_activ || motorB_activ) && timeout_miscare < 500) {
                     
+                    // Ajustare dinamica viteze pentru mentinerea liniei drepte (Regulator P)
                     if (motorA_activ && motorB_activ) {
                         int eroare = pulse_count_A - pulse_count_B;
                         int corectie = (int)(eroare * Kp);
@@ -181,6 +182,7 @@ static void robot_task(void *pvParameters) {
                         v_A = PUTERE_BAZA - corectie;
                         v_B = PUTERE_BAZA + corectie;
 
+                        // Limitare valori in plaja PWM admisa (200 - 1023)
                         if (v_A > 1023) { v_A = 1023; } 
                         if (v_A < 200)  { v_A = 200; }
                         if (v_B > 1023) { v_B = 1023; } 
@@ -189,6 +191,7 @@ static void robot_task(void *pvParameters) {
                         seteaza_viteza_motoare(v_A, v_B);
                     }
 
+                    // Oprire motor A la atingere prag tinta
                     if (pulse_count_A >= target_pulses_miscare && motorA_activ) {
                         ledc_set_duty(LEDC_MODE, CH_MOTOR_A_1A, 0);
                         ledc_update_duty(LEDC_MODE, CH_MOTOR_A_1A);
@@ -198,6 +201,7 @@ static void robot_task(void *pvParameters) {
                         }
                     }
 
+                    // Oprire motor B la atingere prag tinta
                     if (pulse_count_B >= target_pulses_miscare && motorB_activ) {
                         ledc_set_duty(LEDC_MODE, CH_MOTOR_B_1A, 0);
                         ledc_update_duty(LEDC_MODE, CH_MOTOR_B_1A);
@@ -218,6 +222,8 @@ static void robot_task(void *pvParameters) {
         }
     }
 }
+
+// Callback GAP pentru gestionare imperechere Bluetooth
 static void esp_bt_gap_cb(esp_bt_gap_cb_event_t event, esp_bt_gap_cb_param_t *param) {
     switch (event) {
         case ESP_BT_GAP_AUTH_CMPL_EVT:
@@ -235,6 +241,7 @@ static void esp_bt_gap_cb(esp_bt_gap_cb_event_t event, esp_bt_gap_cb_param_t *pa
     }
 }
 
+// Callback SPP pentru receptie stream date de la interfata PC
 static void esp_spp_cb(esp_spp_cb_event_t event, esp_spp_cb_param_t *param) {
     switch (event) {
         case ESP_SPP_INIT_EVT:
@@ -247,6 +254,7 @@ static void esp_spp_cb(esp_spp_cb_event_t event, esp_spp_cb_param_t *param) {
                 memcpy(rx_buffer, param->data_ind.data, data_len);
                 rx_buffer[data_len] = '\0';
 
+                // Parsare payload de tip string ("R:val;M:val|") si adaugare comenzi in coada
                 char *saveptr1;
                 char *token = strtok_r(rx_buffer, "|", &saveptr1);
                 
@@ -270,6 +278,7 @@ static void esp_spp_cb(esp_spp_cb_event_t event, esp_spp_cb_param_t *param) {
 }
 
 void app_main(void) {
+    // Initializare memorie flash NVS pentru configurari Bluetooth
     esp_err_t ret = nvs_flash_init();
     if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
         ESP_ERROR_CHECK(nvs_flash_erase());
@@ -281,7 +290,7 @@ void app_main(void) {
     gpio_reset_pin(LED_PIN);
     gpio_set_direction(LED_PIN, GPIO_MODE_OUTPUT);
 
-    // INITIALIZARE TIMER PWM PENTRU MOTOARE
+    // Configurare Timer PWM pentru controlul motoarelor
     ledc_timer_config_t ledc_timer = {
         .speed_mode       = LEDC_MODE,
         .duty_resolution  = LEDC_DUTY_RES,
@@ -291,7 +300,7 @@ void app_main(void) {
     };
     ledc_timer_config(&ledc_timer);
 
-    // INITIALIZARE CELE 4 CANALE PWM PENTRU PINII DE MOTOARE
+    // Initializarea si maparea celor 4 canale PWM pe pinii puntii H
     ledc_channel_config_t ledc_ch[4] = {
         {.channel=CH_MOTOR_A_1A, .duty=0, .gpio_num=PIN_MOTOR_A_1A, .speed_mode=LEDC_MODE, .hpoint=0, .timer_sel=LEDC_TIMER},
         {.channel=CH_MOTOR_A_1B, .duty=0, .gpio_num=PIN_MOTOR_A_1B, .speed_mode=LEDC_MODE, .hpoint=0, .timer_sel=LEDC_TIMER},
@@ -302,7 +311,7 @@ void app_main(void) {
         ledc_channel_config(&ledc_ch[i]);
     }
 
-    // Configurare pini encodere
+    // Configurare pini citire encodere (Mod input, Pull-up activ, Intrerupere pe front crescator)
     gpio_config_t io_conf = {
         .intr_type = GPIO_INTR_POSEDGE,
         .mode = GPIO_MODE_INPUT,
@@ -312,14 +321,16 @@ void app_main(void) {
     };
     gpio_config(&io_conf);
 
+    // Instalare serviciu driver ISR global si atasare handlere specifice fiecarui encoder
     gpio_install_isr_service(0);
     gpio_isr_handler_add(PIN_ENCODER_A, encoder_A_isr_handler, (void*) PIN_ENCODER_A);
     gpio_isr_handler_add(PIN_ENCODER_B, encoder_B_isr_handler, (void*) PIN_ENCODER_B);
 
+    // Alocare coada FreeRTOS si lansare task control robot pe Core 1
     comenzi_queue = xQueueCreate(20, sizeof(ComandaTraseu));
     xTaskCreatePinnedToCore(robot_task, "robot_task", 4096, NULL, 5, NULL, 1);
 
-    // Pornire Bluetooth Stack
+    // Initializare si pornire controller hardware si stiva Bluetooth Classic (Bluedroid)
     esp_bt_controller_config_t bt_cfg = BT_CONTROLLER_INIT_CONFIG_DEFAULT();
     ESP_ERROR_CHECK(esp_bt_controller_init(&bt_cfg));
     ESP_ERROR_CHECK(esp_bt_controller_enable(ESP_BT_MODE_CLASSIC_BT));
@@ -328,6 +339,7 @@ void app_main(void) {
     ESP_ERROR_CHECK(esp_bt_gap_register_callback(esp_bt_gap_cb));
     ESP_ERROR_CHECK(esp_bt_gap_set_device_name(SPP_SERVER_NAME));
 
+    // Configurare parametrii identificare si securitate profil SPP Bluetooth
     esp_bt_cod_t cod = {.major = 0b00111, .minor = 0b000100, .service = 0b00000010000};
     esp_bt_gap_set_cod(cod, ESP_BT_SET_COD_ALL);
 
@@ -340,7 +352,7 @@ void app_main(void) {
     ESP_ERROR_CHECK(esp_spp_enhanced_init(&spp_cfg));
     ESP_ERROR_CHECK(esp_bt_gap_set_scan_mode(ESP_BT_CONNECTABLE, ESP_BT_GENERAL_DISCOVERABLE));
 
-    ESP_LOGI(TAG, "Sistemul PWM si BT a pornit complet.");
+    ESP_LOGI(TAG, "Sistemul a pornit complet.");
     while (1) {
         vTaskDelay(pdMS_TO_TICKS(1000));
     }

@@ -1,5 +1,6 @@
 #include "functions.h"
 #include <windows.h>
+#include <commdlg.h>
 #include <iostream>
 #include <thread>
 
@@ -36,4 +37,22 @@ void SendBluetoothThreaded(const std::string& portName, const std::string& paylo
     // detasam thread-ul ca sa ruleze complet independent de bucla raylib
     std::thread t(SerialWorker, portName, payload);
     t.detach();
+}
+
+std::string OpenFileDialog() {
+    char file_name[MAX_PATH] = "";
+    OPENFILENAMEA ofn;
+    ZeroMemory(&ofn, sizeof(ofn));
+    ofn.lStructSize = sizeof(ofn);
+    ofn.hwndOwner = NULL;
+    ofn.lpstrFilter = "Imagini (*.png;*.jpg;*.jpeg)\0*.png;*.jpg;*.jpeg\0Toate Fisierele\0*.*\0";
+    ofn.lpstrFile = file_name;
+    ofn.nMaxFile = MAX_PATH;
+    ofn.Flags = OFN_EXPLORER | OFN_FILEMUSTEXIST | OFN_HIDEREADONLY;
+    ofn.lpstrDefExt = "png";
+
+    if (GetOpenFileNameA(&ofn)) {
+        return std::string(file_name);
+    }
+    return "";
 }
