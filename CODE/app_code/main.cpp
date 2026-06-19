@@ -283,16 +283,29 @@ int main() {
             camera.target = robotPos; // Centrare camera pe robot
         }
 
-        // Sectiunea de desenare grafica (Randare cadru)
+        // Sectiunea de desenare grafica
         BeginDrawing();
-        ClearBackground({ 200, 200, 200, 255 });
-
-        // Activare mod desenare dependent de camera (spatiul de simulare)
+        ClearBackground({ 245, 245, 245, 255 });
         BeginMode2D(camera);
-            DrawRectangle(0, 0, 800, 800, { 245, 245, 245, 255 });
-            DrawLine(400, 0, 400, 800, { 220, 220, 220, 255 });
-            DrawLine(0, 400, 800, 400, { 220, 220, 220, 255 });
-            DrawRectangleLines(0, 0, 800, 800, DARKGRAY);
+
+            // Desenăm un grid extins (de la -4000 la 4000 px) ca să acopere tot ecranul la deplasare
+            int dimensiuneCadran = 100;
+
+            // Generare linii verticale pe toată suprafața mapată
+            for (int x = -4000; x <= 4000; x += dimensiuneCadran) {
+                Color culoareLinie = (x == 0 || x == 400 || x == 800) ? Color{ 210, 210, 210, 255 } : Color{ 232, 232, 232, 255 };
+                DrawLine(x, -4000, x, 4000, culoareLinie);
+            }
+
+            // Generare linii orizontale pe toată suprafața mapată
+            for (int y = -4000; y <= 4000; y += dimensiuneCadran) {
+                Color culoareLinie = (y == 0 || y == 400 || y == 800) ? Color{ 210, 210, 210, 255 } : Color{ 232, 232, 232, 255 };
+                DrawLine(-4000, y, 4000, y, culoareLinie);
+            }
+
+            // Evidențiere axe centrale originale (400, 400)
+            DrawLineEx({ 400.0f, -4000.0f }, { 400.0f, 4000.0f }, 2.0f, { 190, 190, 190, 255 });
+            DrawLineEx({ -4000.0f, 400.0f }, { 4000.0f, 400.0f }, 2.0f, { 190, 190, 190, 255 });
 
             // Desenare linii dintre puncte si cercuri pentru noduri
             for (size_t i = 0; i < listaPuncte.size(); i++) {
